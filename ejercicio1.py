@@ -49,3 +49,25 @@ def decodificar_mensaje(mensaje, huffman_codes):
 
 print("Mensaje 1: ", decodificar_mensaje(mensaje1, huffman_codes))
 print("Mensaje 2: ", decodificar_mensaje(mensaje2, huffman_codes))
+
+# Espacio memoria
+
+def espacio_memoria(mensaje, huffman_codes):
+    espacio = 0
+    for bit in mensaje:
+        codigo = huffman_codes[bit]
+        espacio += len(codigo)
+    return espacio
+
+def calcular_espacio_memoria(mensaje, huffman_codes):
+    espacio = espacio_memoria(mensaje, huffman_codes)
+    print("Espacio de memoria: ", espacio, " bits")
+    print("Espacio de memoria: ", espacio / 8, " bytes")
+    print("Espacio de memoria: ", espacio / 8 / 1024, " kilobytes")
+    print("Espacio de memoria: ", espacio / 8 / 1024 / 1024, " megabytes")
+
+print("Espacio de memoria mensaje 1: ", calcular_espacio_memoria(mensaje1, huffman_codes))
+print("Espacio de memoria mensaje 2: ", calcular_espacio_memoria(mensaje2, huffman_codes))
+
+# Eficiencia
+def calcular_porcentaje_compresion
