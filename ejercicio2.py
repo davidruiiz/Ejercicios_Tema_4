@@ -11,21 +11,21 @@ class GrafoMisiones:
     def __init__(self):
         self.nodos = []
         self.aristas = {}
-
+        
     def agregar_nodo(self, misión):
         self.nodos.append(misión)
-
+        
     def agregar_arista(self, origen, destino):
         if origen not in self.aristas:
             self.aristas[origen] = []
         self.aristas[origen].append(destino)
-
+        
     def prioridad_misión(self, misión):
         if misión.general == "Palpatine" or misión.general == "Darth Vader":
             return "alta"
         else:
             return "baja"
-        
+    
     def asignar_recursos(self, misión):
         prioridad = self.prioridad_misión(misión)
         if prioridad == "alta":
@@ -44,7 +44,7 @@ class GrafoMisiones:
                 vehículos = ["AT-AT", "AT-RT", "AT-TE", "AT-DP", "AT-ST", "AT-M6", "AT-MP", "AT-DT"]
                 for i in range(7):
                     misión.recursos_asignados[random.choice(vehículos)] = 1
-
+    
     def mostrar_recursos(self):
         total_recursos = {}
         for misión in self.nodos:
@@ -61,83 +61,32 @@ class GrafoMisiones:
         for recurso, cantidad in total_recursos.items():
             print("- {} : {}".format(recurso, cantidad))
 
-    def mostrar_misiones(self):
-        for misión in self.nodos:
-            print("Misión {} en el planeta {} solicitada por {}.".format(misión.tipo, misión.planeta, misión.general))
-            print("Recursos asignados:")
-            for recurso, cantidad in misión.recursos_asignados.items():
-                print("- {} : {}".format(recurso, cantidad))
-            print()
 
-    def mostrar_misiones_planeta(self, planeta):
-        for misión in self.nodos:
-            if misión.planeta == planeta:
-                print("Misión {} en el planeta {} solicitada por {}.".format(misión.tipo, misión.planeta, misión.general))
-                print("Recursos asignados:")
-                for recurso, cantidad in misión.recursos_asignados.items():
-                    print("- {} : {}".format(recurso, cantidad))
-                print()
+grafo_misiones = GrafoMisiones()
 
-    def mostrar_misiones_general(self, general):
-        for misión in self.nodos:
-            if misión.general == general:
-                print("Misión {} en el planeta {} solicitada por {}.".format(misión.tipo, misión.planeta, misión.general))
-                print("Recursos asignados:")
-                for recurso, cantidad in misión.recursos_asignados.items():
-                    print("- {} : {}".format(recurso, cantidad))
-                print()
+# Agregar algunas misiones de ejemplo
+m1 = Misión("exploración", "Tatooine", "Leia Organa")
+m2 = Misión("contención", "Hoth", "General Veers")
+m3 = Misión("ataque", "Endor", "Han Solo")
+m4 = Misión("exploración", "Yavin IV", "Mon Mothma")
+m5 = Misión("contención", "Dagobah", "Admiral Piett")
+m6 = Misión("ataque", "Coruscant", "Lando Calrissian")
 
-    def mostrar_misiones_tipo(self, tipo):
-        for misión in self.nodos:
-            if misión.tipo == tipo:
-                print("Misión {} en el planeta {} solicitada por {}.".format(misión.tipo, misión.planeta, misión.general))
-                print("Recursos asignados:")
-                for recurso, cantidad in misión.recursos_asignados.items():
-                    print("- {} : {}".format(recurso, cantidad))
-                print()
+# Agregar las misiones al grafo
+grafo_misiones.agregar_nodo(m1)
+grafo_misiones.agregar_nodo(m2)
+grafo_misiones.agregar_nodo(m3)
+grafo_misiones.agregar_nodo(m4)
+grafo_misiones.agregar_nodo(m5)
+grafo_misiones.agregar_nodo(m6)
 
-    def mostrar_misiones_prioridad(self, prioridad):
-        for misión in self.nodos:
-            if self.prioridad_misión(misión) == prioridad:
-                print("Misión {} en el planeta {} solicitada por {}.".format(misión.tipo, misión.planeta, misión.general))
-                print("Recursos asignados:")
-                for recurso, cantidad in misión.recursos_asignados.items():
-                    print("- {} : {}".format(recurso, cantidad))
-                print()
+# Agregar las aristas que indican las dependencias entre las misiones
+grafo_misiones.agregar_arista(m1, m2)
+grafo_misiones.agregar_arista(m1, m3)
+grafo_misiones.agregar_arista(m2, m5)
+grafo_misiones.agregar_arista(m3, m6)
 
-    def mostrar_misiones_recursos(self, recurso):
-        for misión in self.nodos:
-            if recurso in misión.recursos_asignados:
-                print("Misión {} en el planeta {} solicitada por {}.".format(misión.tipo, misión.planeta, misión.general))
-                print("Recursos asignados:")
-                for recurso, cantidad in misión.recursos_asignados.items():
-                    print("- {} : {}".format(recurso, cantidad))
-                print()
-
-
-if __name__ == "__main__":
-    grafo_misiones = GrafoMisiones()
-
-    m1 = Misión("exploración", "Tatooine", "Palpatine")
-    m2 = Misión("contención", "Tatooine", "Darth Vader")
-    m3 = Misión("ataque", "Tatooine", "Darth Vader")
-    m4 = Misión("exploración", "Naboo", "Palpatine")
-    m5 = Misión("contención", "Naboo", "Darth Vader")
-    m6 = Misión("ataque", "Naboo", "Darth Vader")
-
-    grafo_misiones.agregar_nodo(m1)
-    grafo_misiones.agregar_nodo(m2)
-    grafo_misiones.agregar_nodo(m3)
-    grafo_misiones.agregar_nodo(m4)
-    grafo_misiones.agregar_nodo(m5)
-    grafo_misiones.agregar_nodo(m6)
-
-    grafo_misiones.agregar_arista(m1, m2)
-    grafo_misiones.agregar_arista(m1, m3)
-    grafo_misiones.agregar_arista(m2, m5)
-    grafo_misiones.agregar_arista(m3, m6)
-
-    # Asignar recursos a las misiones
-    for misión in grafo_misiones.nodos:
-        grafo_misiones.asignar_recursos(misión)
-    grafo_misiones.mostrar_recursos()
+# Asignar recursos a cada misión y mostrar los recursos asignados
+for misión in grafo_misiones.nodos:
+    grafo_misiones.asignar_recursos(misión)
+grafo_misiones.mostrar_recursos()
