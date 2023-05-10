@@ -62,31 +62,32 @@ class GrafoMisiones:
             print("- {} : {}".format(recurso, cantidad))
 
 
-grafo_misiones = GrafoMisiones()
+if __name__ == "__main__":
+    grafo_misiones = GrafoMisiones()
 
-# Agregar algunas misiones de ejemplo
-m1 = Misión("exploración", "Tatooine", "Leia Organa")
-m2 = Misión("contención", "Hoth", "General Veers")
-m3 = Misión("ataque", "Endor", "Han Solo")
-m4 = Misión("exploración", "Yavin IV", "Mon Mothma")
-m5 = Misión("contención", "Dagobah", "Admiral Piett")
-m6 = Misión("ataque", "Coruscant", "Lando Calrissian")
+    # Agregar algunas misiones de ejemplo
+    m1 = Misión("exploración", "Tatooine", "Leia Organa")
+    m2 = Misión("contención", "Hoth", "General Veers")
+    m3 = Misión("ataque", "Endor", "Han Solo")
+    m4 = Misión("exploración", "Yavin IV", "Mon Mothma")
+    m5 = Misión("contención", "Dagobah", "Admiral Piett")
+    m6 = Misión("ataque", "Coruscant", "Lando Calrissian")
 
-# Agregar las misiones al grafo
-grafo_misiones.agregar_nodo(m1)
-grafo_misiones.agregar_nodo(m2)
-grafo_misiones.agregar_nodo(m3)
-grafo_misiones.agregar_nodo(m4)
-grafo_misiones.agregar_nodo(m5)
-grafo_misiones.agregar_nodo(m6)
+    # Agregar las misiones al grafo
+    grafo_misiones.agregar_nodo(m1)
+    grafo_misiones.agregar_nodo(m2)
+    grafo_misiones.agregar_nodo(m3)
+    grafo_misiones.agregar_nodo(m4)
+    grafo_misiones.agregar_nodo(m5)
+    grafo_misiones.agregar_nodo(m6)
 
-# Agregar las aristas que indican las dependencias entre las misiones
-grafo_misiones.agregar_arista(m1, m2)
-grafo_misiones.agregar_arista(m1, m3)
-grafo_misiones.agregar_arista(m2, m5)
-grafo_misiones.agregar_arista(m3, m6)
+    # Agregar las aristas que indican las dependencias entre las misiones
+    grafo_misiones.agregar_arista(m1, m2)
+    grafo_misiones.agregar_arista(m1, m3)
+    grafo_misiones.agregar_arista(m2, m5)
+    grafo_misiones.agregar_arista(m3, m6)
 
-# Asignar recursos a cada misión y mostrar los recursos asignados
-for misión in grafo_misiones.nodos:
-    grafo_misiones.asignar_recursos(misión)
-grafo_misiones.mostrar_recursos()
+    # Asignar recursos a cada misión y mostrar los recursos asignados
+    for misión in grafo_misiones.nodos:
+        grafo_misiones.asignar_recursos(misión)
+    grafo_misiones.mostrar_recursos()
