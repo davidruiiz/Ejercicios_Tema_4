@@ -48,27 +48,11 @@ def descomprimir_mensaje(mensaje, huffman_codes):
             codigo_actual = ""
     return resultado
 
-#Imprimimos los mensajes descodificados
-mensaje1_descodificado = descomprimir_mensaje(mensaje1, huffman_codes)
-mensaje2_descodificado = descomprimir_mensaje(mensaje2, huffman_codes)
-
-print("Mensaje 1 descodificado: ", mensaje1_descodificado)
-print("Mensaje 2 descodificado: ", mensaje2_descodificado)
-
-
-
 #ESPACIO DE MEMORIA
 def calcular_espacio_memoria(mensaje_original, mensaje_comprimido):
     espacio_original = len(mensaje_original) * 8  # 8 bits por cada caracter
     espacio_comprimido = len(mensaje_comprimido)
     return espacio_original, espacio_comprimido
-
-espacio_mensaje1 = calcular_espacio_memoria(mensaje1, mensaje1_descodificado)
-espacio_mensaje2 = calcular_espacio_memoria(mensaje2, mensaje2_descodificado)
-
-print("Espacio mensaje 1: ", espacio_mensaje1)
-print("Espacio mensaje 2: ", espacio_mensaje2)
-
 
 #PORCENTAJE DE COMPRESION
 def calcular_porcentaje_compresion(mensaje_original, mensaje_comprimido):
@@ -76,9 +60,24 @@ def calcular_porcentaje_compresion(mensaje_original, mensaje_comprimido):
     porcentaje_compresion = (espacio_original - espacio_comprimido) / espacio_original * 100
     return porcentaje_compresion
 
-porcentaje_compresion_mensaje1 = calcular_porcentaje_compresion(mensaje1, mensaje1_descodificado)
-porcentaje_compresion_mensaje2 = calcular_porcentaje_compresion(mensaje2, mensaje2_descodificado)
 
-print("Porcentaje de compresion mensaje 1: ", porcentaje_compresion_mensaje1)
-print("Porcentaje de compresion mensaje 2: ", porcentaje_compresion_mensaje2)
 
+if __name__ == '__main__':
+    
+    #Imprimimos los mensajes descodificados
+    mensaje1_descodificado = descomprimir_mensaje(mensaje1, huffman_codes)
+    mensaje2_descodificado = descomprimir_mensaje(mensaje2, huffman_codes)
+
+    print("Mensaje 1 descodificado: ", mensaje1_descodificado)
+    print("Mensaje 2 descodificado: ", mensaje2_descodificado)
+
+    espacio_mensaje1 = calcular_espacio_memoria(mensaje1, mensaje1_descodificado)
+    espacio_mensaje2 = calcular_espacio_memoria(mensaje2, mensaje2_descodificado)
+
+    print("Espacio mensaje 1: ", espacio_mensaje1)
+    print("Espacio mensaje 2: ", espacio_mensaje2)
+    porcentaje_compresion_mensaje1 = calcular_porcentaje_compresion(mensaje1, mensaje1_descodificado)
+    porcentaje_compresion_mensaje2 = calcular_porcentaje_compresion(mensaje2, mensaje2_descodificado)
+
+    print("Porcentaje de compresion mensaje 1: ", porcentaje_compresion_mensaje1)
+    print("Porcentaje de compresion mensaje 2: ", porcentaje_compresion_mensaje2)
