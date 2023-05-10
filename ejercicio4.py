@@ -1,19 +1,19 @@
 class Nodo:
-    def __init__(self, dato=None):
-        self.dato = dato
-        self.siguiente = None
+    def __init__(self, dato: int = None):
+        self.dato: int = dato
+        self.siguiente: Nodo = None
 
 class ListaEnlazada:
     def __init__(self):
-        self.cabeza = None
-        self.largo = 0
+        self.cabeza: Nodo = None
+        self.largo: int = 0
     
-    def __len__(self):
+    def __len__(self) -> int:
         return self.largo
     
-    def __str__(self):
-        valores = []
-        actual = self.cabeza
+    def __str__(self) -> str:
+        valores: list = []
+        actual: Nodo = self.cabeza
         while actual:
             valores.append(str(actual.dato))
             actual = actual.siguiente
@@ -31,6 +31,7 @@ class ListaEnlazada:
         self.largo += 1
 
 def biseccion(f, a, b, tol=1e-6, max_iter=100):
+    
     fa = f(a)
     fb = f(b)
     if fa*fb > 0:
@@ -55,11 +56,16 @@ def biseccion(f, a, b, tol=1e-6, max_iter=100):
     return None, None, None
 
 def secante(f, x0, x1, tol=1e-6, max_iter=100):
+    
+    # Evaluamos la función en x0 y x1
     fx0 = f(x0)
     fx1 = f(x1)
+    # Creamos una lista para guardar las aproximaciones
     x = ListaEnlazada()
+    # Agregamos x0 y x1 a la lista
     x.insertar(x0)
     x.insertar(x1)
+    # Iteramos hasta que se cumpla el criterio de parada
     for i in range(2, max_iter+1):
         x2 = x1 - fx1*(x1 - x0)/(fx1 - fx0)
         fx2 = f(x2)
@@ -74,22 +80,18 @@ def secante(f, x0, x1, tol=1e-6, max_iter=100):
     return None, None, None
 
 def newton_raphson(f, df, x0, tol=1e-6, max_iter=100):
-    fx0 = f(x0)
     x = ListaEnlazada()
     x.insertar(x0)
     for i in range(1, max_iter+1):
         dfx0 = df(x0)
         if abs(dfx0) < tol:
-            print("Error: derivada demasiado cercana a cero")
             return None, None, None
-        x1 = x0 - fx0/dfx0
-        fx1 = f(x1)
+        x1 = x0 - f(x0)/dfx0
         x.insertar(x1)
-        if abs(fx1) < tol:
+        if abs(f(x1)) < tol:
             return x, x1, i
         x0 = x1
-        fx0 = fx1
-    print("Error: se alcanzó el número máximo de iteraciones")
+    return None, None, None
    
 
 def f(x):
@@ -98,27 +100,29 @@ def f(x):
 def df(x):
     return 3*x**2 + 1
 
-a = -5
-b = 5
-x0 = -5
-x1 = 5
-tol = 1e-6
-max_iter = 100
+if __name__ == "__main__":
 
-print("Método de la bisección:")
-x_b, sol_b, iter_b = biseccion(f, a, b, tol, max_iter)
-print("Solución:", sol_b)
-print("Iteraciones:", iter_b)
-print("Secuencia:", x_b)
+    a = -5
+    b = 5
+    x0 = -5
+    x1 = 5
+    tol = 1e-6
+    max_iter = 100
 
-print("Método de la secante:")
-x_s, sol_s, iter_s = secante(f, x0, x1, tol, max_iter)
-print("Solución:", sol_s)
-print("Iteraciones:", iter_s)
-print("Secuencia:", x_s)
+    print("Método de la bisección:")
+    x_b, sol_b, iter_b = biseccion(f, a, b, tol, max_iter)
+    print("Solución:", sol_b)
+    print("Iteraciones:", iter_b)
+    print("Secuencia:", x_b)
 
-print("Método de Newton-Raphson:")
-x_n, sol_n, iter_n = newton_raphson(f, df, x0, tol, max_iter)
-print("Solución:", sol_n)
-print("Iteraciones:", iter_n)
-print("Secuencia:", x_n)
+    print("Método de la secante:")
+    x_s, sol_s, iter_s = secante(f, x0, x1, tol, max_iter)
+    print("Solución:", sol_s)
+    print("Iteraciones:", iter_s)
+    print("Secuencia:", x_s)
+
+    print("Método de Newton-Raphson:")
+    x_n, sol_n, iter_n = newton_raphson(f, df, x0, tol, max_iter)
+    print("Solución:", sol_n)
+    print("Iteraciones:", iter_n)
+    print("Secuencia:", x_n)
