@@ -114,24 +114,30 @@ class GrafoMisiones:
                     print("- {} : {}".format(recurso, cantidad))
                 print()
 
-grafo_misiones = GrafoMisiones()
 
-m1 = Misión("exploración", "Tatooine", "Palpatine")
-m2 = Misión("contención", "Tatooine", "Darth Vader")
-m3 = Misión("ataque", "Tatooine", "Darth Vader")
-m4 = Misión("exploración", "Naboo", "Palpatine")
-m5 = Misión("contención", "Naboo", "Darth Vader")
-m6 = Misión("ataque", "Naboo", "Darth Vader")
+if __name__ == "__main__":
+    grafo_misiones = GrafoMisiones()
 
-grafo_misiones.agregar_nodo(m1)
-grafo_misiones.agregar_nodo(m2)
-grafo_misiones.agregar_nodo(m3)
-grafo_misiones.agregar_nodo(m4)
-grafo_misiones.agregar_nodo(m5)
-grafo_misiones.agregar_nodo(m6)
+    m1 = Misión("exploración", "Tatooine", "Palpatine")
+    m2 = Misión("contención", "Tatooine", "Darth Vader")
+    m3 = Misión("ataque", "Tatooine", "Darth Vader")
+    m4 = Misión("exploración", "Naboo", "Palpatine")
+    m5 = Misión("contención", "Naboo", "Darth Vader")
+    m6 = Misión("ataque", "Naboo", "Darth Vader")
 
-grafo_misiones.agregar_arista(m1, m2)
-grafo_misiones.agregar_arista(m1, m3)
-grafo_misiones.agregar_arista(m2, m5)
-grafo_misiones.agregar_arista(m3, m6)
+    grafo_misiones.agregar_nodo(m1)
+    grafo_misiones.agregar_nodo(m2)
+    grafo_misiones.agregar_nodo(m3)
+    grafo_misiones.agregar_nodo(m4)
+    grafo_misiones.agregar_nodo(m5)
+    grafo_misiones.agregar_nodo(m6)
 
+    grafo_misiones.agregar_arista(m1, m2)
+    grafo_misiones.agregar_arista(m1, m3)
+    grafo_misiones.agregar_arista(m2, m5)
+    grafo_misiones.agregar_arista(m3, m6)
+
+    # Asignar recursos a las misiones
+    for misión in grafo_misiones.nodos:
+        grafo_misiones.asignar_recursos(misión)
+    grafo_misiones.mostrar_recursos()
